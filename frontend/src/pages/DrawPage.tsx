@@ -7,10 +7,10 @@ function DrawPage() {
   const [selected, setSelected] = useState<"normal" | "special">("normal");
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-[800px] bg-white shadow-md rounded-lg p-4">
-        <Animation />
+    <div className="flex items-center justify-center min-h-screen bg-white">
+      <div className="w-full max-w-[800px] bg-white p-0">
         <DropDown selected={selected} onChange={setSelected} />
+        <Animation />
         <Button selected={selected} />
       </div>
     </div>

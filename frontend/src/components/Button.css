@@ -1,0 +1,28 @@
+/* 공이 굴러가는 애니메이션 */
+@keyframes rollAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  10% {
+    transform: translateX(600px) rotate(0deg);
+    opacity: 0;
+    visibility: hidden;
+    /* 공이 안보임 */
+  }
+  75% {
+    opacity: 0;
+    visibility: hidden;
+    /* 공이 보임 */
+  }
+  100% {
+    transform: translateX(0px) rotate(-360deg); /* 200px 이동하고 360도 회전 */
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.animate-roll {
+  visibility: hidden;
+  animation: rollAnimation 2s ease-in-out forwards; /* 애니메이션 지속시간 2초 후 정지*/
+}
