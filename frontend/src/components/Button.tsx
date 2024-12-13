@@ -1,8 +1,20 @@
 import React, { useState } from "react";
+import "./Button.css";
 
 interface ButtonProps {
   selected: "normal" | "special";
 }
+
+// SVG 파일 동적 임포트
+const svgs = import.meta.glob("../assets/ball_*.svg", {
+  eager: true,
+}) as Record<string, { default: string }>;
+
+// 숫자를 기반으로 파일 경로를 반환하는 함수
+const getImageByNumber = (num: number) => {
+  const filePath = `../assets/ball_${num}.svg`;
+  return svgs[filePath]?.default || null;
+};
 
 function Button({ selected }: ButtonProps) {
   const [result, setResult] = useState<string | null>(null);
@@ -113,9 +125,47 @@ function Button({ selected }: ButtonProps) {
           )}
         </button>
       </div>
-      {/* <pre className="mt-6 bg-gray-200 rounded w-full max-w-[800px] overflow-auto">
-        {result || "결과가 여기에 표시됩니다."}
-      </pre> */}
+      {result
+        ? (() => {
+            const parsedResult = JSON.parse(result);
+
+            // single_draw 또는 multiple_draws 데이터 추출
+            const drawResults =
+              parsedResult.single_draw ??
+              (parsedResult.multiple_draws?.flat() || []);
+
+            // 6개씩 끊어서 그룹화
+            const groupedResults = [];
+            for (let i = 0; i < drawResults.length; i += 6) {
+              groupedResults.push(drawResults.slice(i, i + 6));
+            }
+
+            // 그룹화된 결과를 렌더링
+            return groupedResults.map((group, groupIdx) => (
+              <div
+                key={groupIdx}
+                className="w-[600px] flex justify-center space-x-4 bg-gray-300 p-2 rounded"
+              >
+                {group.map((num: number, idx: number) => {
+                  const imageSrc = getImageByNumber(num);
+                  return imageSrc ? (
+                    <img
+                      key={idx}
+                      src={imageSrc}
+                      alt={`ball_${num}`}
+                      className="w-12 h-12 animate-roll"
+                      style={{ animationDelay: `${idx * 0.1}s` }} // 이미지 순서대로 딜레이 설정
+                    />
+                  ) : (
+                    <span key={idx} className="text-red-500">
+                      {`이미지 없음 (${num})`}
+                    </span>
+                  );
+                })}
+              </div>
+            ));
+          })()
+        : " "}
     </div>
   );
 }
