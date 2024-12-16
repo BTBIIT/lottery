@@ -3,6 +3,7 @@ import "./Button.css";
 
 interface ButtonProps {
   selected: "normal" | "special";
+  specialInput: string; // Pass the input value from DropDown
 }
 
 // SVG 파일 동적 임포트
@@ -16,12 +17,11 @@ const getImageByNumber = (num: number) => {
   return svgs[filePath]?.default || null;
 };
 
-function Button({ selected }: ButtonProps) {
+function Button({ selected, specialInput }: ButtonProps) {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState<"none" | "singular" | "plural">(
     "none"
   );
-
   const handleClick = async (drawCount: number) => {
     const buttonType = drawCount === 1 ? "singular" : "plural";
     setLoading(buttonType); // 로딩 상태 활성화
@@ -41,12 +41,24 @@ function Button({ selected }: ButtonProps) {
             : "http://localhost:5000/api/draw-limited-multiple";
       }
 
-      console.log("Requesting API endpoint:", endpoint);
+      console.log("Requesting API endpoint:", endpoint); // 1. 여기에요!
+
+      // n 값을 쿼리 파라미터로 추가
+      const url = new URL(endpoint);
+      url.searchParams.append("n", specialInput);
+
+      console.log("Special Input:", specialInput); // 2. 여기에요!
+      console.log("Generated URL:", url.toString()); // 3. 여기에요!
 
       // 3초 지연 후 API 요청 처리
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      const response = await fetch(endpoint);
+      const response = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -125,47 +137,13 @@ function Button({ selected }: ButtonProps) {
           )}
         </button>
       </div>
-      {result
-        ? (() => {
-            const parsedResult = JSON.parse(result);
 
-            // single_draw 또는 multiple_draws 데이터 추출
-            const drawResults =
-              parsedResult.single_draw ??
-              (parsedResult.multiple_draws?.flat() || []);
-
-            // 6개씩 끊어서 그룹화
-            const groupedResults = [];
-            for (let i = 0; i < drawResults.length; i += 6) {
-              groupedResults.push(drawResults.slice(i, i + 6));
-            }
-
-            // 그룹화된 결과를 렌더링
-            return groupedResults.map((group, groupIdx) => (
-              <div
-                key={groupIdx}
-                className="w-[600px] flex justify-center space-x-4 bg-gray-300 p-2 rounded"
-              >
-                {group.map((num: number, idx: number) => {
-                  const imageSrc = getImageByNumber(num);
-                  return imageSrc ? (
-                    <img
-                      key={idx}
-                      src={imageSrc}
-                      alt={`ball_${num}`}
-                      className="w-12 h-12 animate-roll"
-                      style={{ animationDelay: `${idx * 0.1}s` }} // 이미지 순서대로 딜레이 설정
-                    />
-                  ) : (
-                    <span key={idx} className="text-red-500">
-                      {`이미지 없음 (${num})`}
-                    </span>
-                  );
-                })}
-              </div>
-            ));
-          })()
-        : " "}
+      {/* 결과 렌더링 */}
+      {result && (
+        <div className="mt-4">
+          <pre className="bg-gray-100 p-4 rounded-md">{result}</pre>
+        </div>
+      )}
     </div>
   );
 }

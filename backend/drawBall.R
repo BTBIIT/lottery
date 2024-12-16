@@ -46,8 +46,4 @@ for (i in 1:45) {
   
   # 파일 저장 (폴더를 미리 생성해야 함)
   ggsave(filename = paste0("ball_", i, ".svg"), plot = p, width = 3, height = 3, dpi = 200)
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
