@@ -9,7 +9,7 @@ function DropDown({ selected, onChange }: DropDownProps) {
   const [specialInput, setSpecialInput] = useState("");
 
   return (
-    <div className="w-[800px] h-[150px] mt-8 flex justify-center ">
+    <div className="cw-[800px] h-[150px] mt-8 flex justify-center ">
       <select
         id="raffle-select"
         className="w-[200px] h-[50px] p-2 border border-gray-300 rounded-md rounded-tr-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-black font-bold"
