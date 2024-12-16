@@ -5,10 +5,7 @@ import numpy as np # 샘플링과 수학적 계산을 위한 numpy 라이브러�
 import json # JSON 응답을 생성하기 위한 라이브러리
 from collections import OrderedDict # 열 순서를 유지하기 위한 OrderedDict 클래스
 from flask_cors import CORS
-<<<<<<< HEAD
-=======
 
->>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
 app = Flask(__name__) # flask 앱 초기화
 CORS(app)
 # 데이터 파일 경로 (추후 인터넷 URL로 변경 예정)
