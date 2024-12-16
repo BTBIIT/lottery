@@ -5,6 +5,10 @@ import numpy as np # 샘플링과 수학적 계산을 위한 numpy 라이브러�
 import json # JSON 응답을 생성하기 위한 라이브러리
 from collections import OrderedDict # 열 순서를 유지하기 위한 OrderedDict 클래스
 from flask_cors import CORS
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
 app = Flask(__name__) # flask 앱 초기화
 CORS(app)
 # 데이터 파일 경로 (추후 인터넷 URL로 변경 예정)
@@ -77,6 +81,7 @@ def limited_draw(data, recent_count):
 # API 반환부 #
 ##############################################################################################################################################
 
+<<<<<<< HEAD
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
 # 목  적 : 복권 데이터를 정렬된 형식으로 반환하는 API
@@ -85,10 +90,25 @@ def limited_draw(data, recent_count):
 # 반환값 : JSON 형식으로 정렬된 복권 데이터
 @app.route("/api/data", methods=["GET"])
 def get_data():
+=======
+# Backend 코드 수정 
+# 작성자 : 박건혁
+# 작성일 : 2024-12-09
+# 수정일 : 2024-12-12
+# 목  적 : 복권 데이터를 정렬된 형식으로 반환하는 API 
+# 입력값 : 없음
+# 수정 전 메서드 : 1. 데이터를 로드하고 최신 날짜 기준으로 정렬 / 2. 열 순서를 유지하여 JSON 포맷으로 변환
+# 수정 후 메서드 : 1. 데이터를 로드 후 페이지 번호와 한 페이지당 항목 수를 쿼리파라미터로 받음 
+#                 2. 데이터의 시작과 끝 인덱스 계산 / 3. 데이터가 없을 경우 에러처리 / 4. JSON 포맷으로 변환하여 전송
+# 반환값 : JSON 형식으로 정렬된 복권 데이터
+@app.route("/api/data", methods=["GET"])
+def get_paginated_data():
+>>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
     # 최신 데이터 로드
     data = load_and_sort_data()
     if data is None:
         return Response(json.dumps({"error": "데이터를 로드할 수 없습니다."}), status=500, mimetype='application/json')
+<<<<<<< HEAD
     
     # 열 순서 유지
     column_order = ["Index", "date", "one", "two", "three", "four", "five", "six", "bonus"]
@@ -100,6 +120,27 @@ def get_data():
         OrderedDict((col, row[col]) for col in column_order) for _, row in data.iterrows()
     ]
     
+=======
+    # 페이지 번호와 한 페이지당 항목 수를 쿼리 파라미터로 받기 (기본값: page=1, limit=10)
+    page = request.args.get("page", default=1, type=int)
+    limit = request.args.get("limit", default=10, type=int)
+    # 데이터의 시작 및 끝 인덱스 계산
+    start_index = (page - 1) * limit
+    end_index = start_index + limit
+    # 해당 페이지에 해당하는 데이터 추출
+    paginated_data = data.iloc[start_index:end_index]
+    # 데이터가 없을 경우 에러 처리
+    if paginated_data.empty:
+        return Response(json.dumps({"error": "더 이상 데이터가 없습니다."}), status=404, mimetype='application/json')
+    # 열 순서 유지
+    column_order = ["Index", "date", "one", "two", "three", "four", "five", "six", "bonus"]
+    if set(column_order) == set(data.columns):
+        paginated_data = paginated_data[column_order]
+    # JSON으로 변환 (OrderedDict를 사용해 열 순서 유지)
+    json_data = [
+        OrderedDict((col, row[col]) for col in column_order) for _, row in paginated_data.iterrows()
+    ]
+>>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
     # JSON 문자열로 변환 후 응답
     return Response(json.dumps(json_data, ensure_ascii=False), mimetype='application/json')
 

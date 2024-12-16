@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import "./index.css";
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
@@ -15,5 +15,7 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error("Root element not found. Make sure 'root' exists in your HTML.");
+  console.error(
+    "Root element not found. Make sure 'root' exists in your HTML."
+  );
 }

@@ -41,4 +41,12 @@ result <- data.frame(
 )
 
 
+<<<<<<< HEAD
 sample(result$Number, size = 6, replace = F, prob = result$Probability)
+=======
+sample(result$Number, size = 6, replace = F, prob = result$Probability)
+
+
+
+
+>>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
