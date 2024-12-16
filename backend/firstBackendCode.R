@@ -44,5 +44,3 @@ result <- data.frame(
 sample(result$Number, size = 6, replace = F, prob = result$Probability)
 
 
-
-
