@@ -55,7 +55,7 @@ function DropDown({
           <input
             style={{ color: "black" }}
             type="text"
-            className="w-[220px] ml-[50px] mt-6 p-2 border border-gray-300 rounded-md text-center"
+            className="w-[350px] ml-[50px] mt-6 p-2 border border-gray-300 rounded-md text-center"
             placeholder="예) 100"
             value={specialInput} // 부모에서 전달받은 specialInput 값
             onChange={handleInputChange} // 입력 시 부모에 전달
