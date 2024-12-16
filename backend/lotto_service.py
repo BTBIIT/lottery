@@ -78,16 +78,6 @@ def limited_draw(data, recent_count):
 # API 반환부 #
 ##############################################################################################################################################
 
-<<<<<<< HEAD
-# 작성자 : 박건혁
-# 작성일 : 2024-12-09
-# 목  적 : 복권 데이터를 정렬된 형식으로 반환하는 API
-# 입력값 : 없음
-# 메서드 : 1. 데이터를 로드하고 최신 날짜 기준으로 정렬 / 2. 열 순서를 유지하여 JSON 포맷으로 변환
-# 반환값 : JSON 형식으로 정렬된 복권 데이터
-@app.route("/api/data", methods=["GET"])
-def get_data():
-=======
 # Backend 코드 수정 
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
@@ -100,24 +90,10 @@ def get_data():
 # 반환값 : JSON 형식으로 정렬된 복권 데이터
 @app.route("/api/data", methods=["GET"])
 def get_paginated_data():
->>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
     # 최신 데이터 로드
     data = load_and_sort_data()
     if data is None:
         return Response(json.dumps({"error": "데이터를 로드할 수 없습니다."}), status=500, mimetype='application/json')
-<<<<<<< HEAD
-    
-    # 열 순서 유지
-    column_order = ["Index", "date", "one", "two", "three", "four", "five", "six", "bonus"]
-    if set(column_order) == set(data.columns):
-        data = data[column_order]
-    
-    # JSON으로 변환 (OrderedDict를 사용해 열 순서 유지)
-    json_data = [
-        OrderedDict((col, row[col]) for col in column_order) for _, row in data.iterrows()
-    ]
-    
-=======
     # 페이지 번호와 한 페이지당 항목 수를 쿼리 파라미터로 받기 (기본값: page=1, limit=10)
     page = request.args.get("page", default=1, type=int)
     limit = request.args.get("limit", default=10, type=int)
@@ -137,7 +113,6 @@ def get_paginated_data():
     json_data = [
         OrderedDict((col, row[col]) for col in column_order) for _, row in paginated_data.iterrows()
     ]
->>>>>>> f26cd1ea5678c7bca5e9584edf6bdbfa1e638bf6
     # JSON 문자열로 변환 후 응답
     return Response(json.dumps(json_data, ensure_ascii=False), mimetype='application/json')
 
