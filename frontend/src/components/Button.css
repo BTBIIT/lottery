@@ -24,5 +24,5 @@
 
 .animate-roll {
   visibility: hidden;
-  animation: rollAnimation 2s ease-in-out forwards; /* 애니메이션 지속시간 2초 후 정지*/
+  animation: rollAnimation 1.5s ease-in-out forwards; /* 애니메이션 지속시간 3초 후 정지*/
 }

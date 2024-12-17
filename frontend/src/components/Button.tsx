@@ -3,7 +3,7 @@ import "./Button.css";
 
 interface ButtonProps {
   selected: "normal" | "special";
-  specialInput: string; // Pass the input value from DropDown
+  specialInput: string;
 }
 
 // SVG 파일 동적 임포트
@@ -18,14 +18,17 @@ const getImageByNumber = (num: number) => {
 };
 
 function Button({ selected, specialInput }: ButtonProps) {
-  const [result, setResult] = useState<string | null>(null);
+  const [result, setResult] = useState<number[][] | null>(null);
   const [loading, setLoading] = useState<"none" | "singular" | "plural">(
     "none"
   );
+  const [isAnimating, setIsAnimating] = useState(false);
+
   const handleClick = async (drawCount: number) => {
     const buttonType = drawCount === 1 ? "singular" : "plural";
-    setLoading(buttonType); // 로딩 상태 활성화
-    setResult(null); // 기존 결과 초기화
+    setLoading(buttonType);
+    setResult(null);
+    setIsAnimating(true); // 애니메이션 시작
 
     try {
       let endpoint = "";
@@ -41,14 +44,8 @@ function Button({ selected, specialInput }: ButtonProps) {
             : "http://localhost:5000/api/draw-limited-multiple";
       }
 
-      console.log("Requesting API endpoint:", endpoint); // 1. 여기에요!
-
-      // n 값을 쿼리 파라미터로 추가
       const url = new URL(endpoint);
       url.searchParams.append("n", specialInput);
-
-      console.log("Special Input:", specialInput); // 2. 여기에요!
-      console.log("Generated URL:", url.toString()); // 3. 여기에요!
 
       // 3초 지연 후 API 요청 처리
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -64,22 +61,36 @@ function Button({ selected, specialInput }: ButtonProps) {
       }
 
       const data = await response.json();
-      setResult(JSON.stringify(data, null, 2));
+
+      if (selected === "special") {
+        if (drawCount === 1) {
+          setResult([data.limited_draw || []]);
+        } else {
+          setResult(data.limited_multiple_draws || []);
+        }
+      } else {
+        if (drawCount === 1) {
+          setResult([data.single_draw || []]);
+        } else {
+          setResult(data.multiple_draws || []);
+        }
+      }
     } catch (error) {
       console.error("API 호출 중 오류 발생:", error);
-      setResult("오류 발생: 데이터를 가져올 수 없습니다.");
+      setResult([]);
     } finally {
-      setLoading("none"); // 로딩 상태 비활성화
+      setLoading("none");
+      setTimeout(() => setIsAnimating(false), 3000); // 3초 뒤 애니메이션 중단
     }
   };
 
   return (
     <div className="w-[800px] flex flex-col items-center space-y-6">
-      <div className="w-[600px] flex justify-between">
+      <div className="w-[600px] flex justify-between mb-2">
         <button
           onClick={() => handleClick(1)}
           className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
-          disabled={loading !== "none"} // 다른 버튼 클릭 방지
+          disabled={loading !== "none"}
         >
           {loading === "singular" ? (
             <svg
@@ -109,7 +120,7 @@ function Button({ selected, specialInput }: ButtonProps) {
         <button
           onClick={() => handleClick(5)}
           className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
-          disabled={loading !== "none"} // 다른 버튼 클릭 방지
+          disabled={loading !== "none"}
         >
           {loading === "plural" ? (
             <svg
@@ -140,8 +151,37 @@ function Button({ selected, specialInput }: ButtonProps) {
 
       {/* 결과 렌더링 */}
       {result && (
-        <div className="mt-4">
-          <pre className="bg-gray-100 p-4 rounded-md">{result}</pre>
+        <div className="mt-4 space-y-6">
+          {result.map((draw, drawIndex) => (
+            <div
+              key={drawIndex}
+              className="flex flex-wrap gap-4 justify-center w-[600px] p-4 rounded-lg bg-gray-300"
+            >
+              {draw.map((num, numIndex) => {
+                const imageSrc = getImageByNumber(num);
+                const delay = `${numIndex * 0.2}s`; // 순서대로 0.2초 간격 설정
+                return imageSrc ? (
+                  <img
+                    key={numIndex}
+                    src={imageSrc}
+                    alt={`Ball ${num}`}
+                    className={`w-16 h-16 ${isAnimating ? "animate-roll" : ""}`}
+                    style={{ animationDelay: delay }}
+                  />
+                ) : (
+                  <div
+                    key={numIndex}
+                    className={`w-16 h-16 flex items-center justify-center bg-gray-300 text-black rounded-full ${
+                      isAnimating ? "animate-roll" : ""
+                    }`}
+                    style={{ animationDelay: delay }}
+                  >
+                    {num}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       )}
     </div>
