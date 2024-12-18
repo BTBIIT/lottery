@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./Button.css";
 
 interface ButtonProps {
-  selected: "normal" | "special";
-  specialInput: string;
+  selected: "normal" | "special"; // 선택된 모드
+  specialInput: string; // specialInput 값
+  onNewResult: (newResult: number[][]) => void; // 새로운 결과를 상위 컴포넌트로 전달하는 콜백
 }
 
 // SVG 파일 동적 임포트
@@ -17,17 +18,18 @@ const getImageByNumber = (num: number) => {
   return svgs[filePath]?.default || null;
 };
 
-function Button({ selected, specialInput }: ButtonProps) {
-  const [result, setResult] = useState<number[][] | null>(null);
+function Button({ selected, specialInput, onNewResult }: ButtonProps) {
+  const [result, setResult] = useState<number[][] | null>(null); // 로컬 상태로 결과를 관리
   const [loading, setLoading] = useState<"none" | "singular" | "plural">(
     "none"
-  );
-  const [isAnimating, setIsAnimating] = useState(false);
+  ); // 로딩 상태
+  const [isAnimating, setIsAnimating] = useState(false); // 애니메이션 여부
 
+  // 버튼 클릭 핸들러
   const handleClick = async (drawCount: number) => {
     const buttonType = drawCount === 1 ? "singular" : "plural";
-    setLoading(buttonType);
-    setResult(null);
+    setLoading(buttonType); // 로딩 상태 업데이트
+    setResult(null); // 기존 결과 초기화
     setIsAnimating(true); // 애니메이션 시작
 
     try {
@@ -45,9 +47,9 @@ function Button({ selected, specialInput }: ButtonProps) {
       }
 
       const url = new URL(endpoint);
-      url.searchParams.append("n", specialInput);
+      url.searchParams.append("n", specialInput); // specialInput을 쿼리 파라미터로 추가
 
-      // 3초 지연 후 API 요청 처리
+      // 2초 지연 후 API 요청 처리
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await fetch(url.toString(), {
@@ -62,35 +64,38 @@ function Button({ selected, specialInput }: ButtonProps) {
 
       const data = await response.json();
 
+      let newResult: number[][] = [];
       if (selected === "special") {
-        if (drawCount === 1) {
-          setResult([data.limited_draw || []]);
-        } else {
-          setResult(data.limited_multiple_draws || []);
-        }
+        newResult =
+          drawCount === 1
+            ? [data.limited_draw || []]
+            : data.limited_multiple_draws || [];
       } else {
-        if (drawCount === 1) {
-          setResult([data.single_draw || []]);
-        } else {
-          setResult(data.multiple_draws || []);
-        }
+        newResult =
+          drawCount === 1
+            ? [data.single_draw || []]
+            : data.multiple_draws || [];
       }
+
+      setResult(newResult); // 로컬 상태 업데이트
+      onNewResult(newResult); // ⬅️ **새로운 결과를 상위 컴포넌트로 전달**
     } catch (error) {
       console.error("API 호출 중 오류 발생:", error);
       setResult([]);
     } finally {
-      setLoading("none");
-      setTimeout(() => setIsAnimating(false), 3000); // 3초 뒤 애니메이션 중단
+      setLoading("none"); // 로딩 상태 해제
+      setTimeout(() => setIsAnimating(false), 3000); // 애니메이션 종료
     }
   };
 
   return (
     <div className="w-[800px] flex flex-col items-center space-y-6">
       <div className="w-[600px] flex justify-between mb-2">
+        {/* 1회 추첨 버튼 */}
         <button
           onClick={() => handleClick(1)}
           className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
-          disabled={loading !== "none"}
+          disabled={loading !== "none"} // 로딩 중에는 비활성화
         >
           {loading === "singular" ? (
             <svg
@@ -117,10 +122,11 @@ function Button({ selected, specialInput }: ButtonProps) {
             "1회 추첨"
           )}
         </button>
+        {/* 5회 추첨 버튼 */}
         <button
           onClick={() => handleClick(5)}
           className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
-          disabled={loading !== "none"}
+          disabled={loading !== "none"} // 로딩 중에는 비활성화
         >
           {loading === "plural" ? (
             <svg

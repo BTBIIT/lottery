@@ -6,10 +6,20 @@ import Result from "../components/Result";
 
 function DrawPage() {
   const [selected, setSelected] = useState<"normal" | "special">("normal");
-  const [specialInput, setSpecialInput] = useState<string>(""); // specialInput 상태 추가
+  const [specialInput, setSpecialInput] = useState<string>("");
+  const [log, setLog] = useState<number[][]>([]);
 
   const handleSpecialInputChange = (input: string) => {
-    setSpecialInput(input); // specialInput 값 변경
+    setSpecialInput(input);
+  };
+
+  const handleNewResult = (newResult: number[][]) => {
+    setLog((prevLog) => [...prevLog, ...newResult]);
+  };
+
+  const handleUpdateLog = (newLog: number[][]) => {
+    setLog(newLog); // 새로운 로그로 상태 업데이트
+    localStorage.setItem("logs", JSON.stringify(newLog)); // localStorage에 저장
   };
 
   return (
@@ -18,13 +28,19 @@ function DrawPage() {
         <DropDown
           selected={selected}
           onChange={setSelected}
-          specialInput={specialInput} // specialInput 값을 DropDown에 전달
-          onSpecialInputChange={handleSpecialInputChange} // 값 변경 함수 전달
+          specialInput={specialInput}
+          onSpecialInputChange={handleSpecialInputChange}
         />
         <Animation />
-        <Button selected={selected} specialInput={specialInput} />{" "}
-        {/* specialInput 전달 */}
-        <Result results={[]} />
+        <Button
+          selected={selected}
+          specialInput={specialInput}
+          onNewResult={handleNewResult}
+        />
+        <Result
+          log={log}
+          onUpdateLog={handleUpdateLog} // 수정된 onUpdateLog 함수 전달
+        />
       </div>
     </div>
   );
