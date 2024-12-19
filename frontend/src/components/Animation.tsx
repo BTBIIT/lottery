@@ -18,6 +18,7 @@ interface BallPosition {
 
 interface AnimationState {
   ballPositions: BallPosition[];
+  speed: number; // 추가된 속도 상태
 }
 
 class Animation extends React.Component<{}, AnimationState> {
@@ -32,6 +33,7 @@ class Animation extends React.Component<{}, AnimationState> {
         dx: (Math.random() * 2 - 1) * 2, // 임의의 x 방향 속도
         dy: (Math.random() * 2 - 1) * 2, // 임의의 y 방향 속도
       })),
+      speed: 1, // 기본 속도
     };
   }
 
@@ -50,9 +52,9 @@ class Animation extends React.Component<{}, AnimationState> {
       const newPositions = prevState.ballPositions.map((ball) => {
         let { x, y, dx, dy } = ball;
 
-        // 위치 업데이트
-        x += dx;
-        y += dy;
+        // 위치 업데이트 (속도 적용)
+        x += dx * prevState.speed; // 속도에 따라 이동
+        y += dy * prevState.speed;
 
         // 테두리에 닿았을 때 반사
         if (x < 0 || x > 600 - 50) {
@@ -71,6 +73,11 @@ class Animation extends React.Component<{}, AnimationState> {
     });
 
     this.animationFrameId = requestAnimationFrame(this.animate);
+  };
+
+  // 속도 업데이트를 위한 메서드 추가
+  setSpeed = (speed: number) => {
+    this.setState({ speed });
   };
 
   render() {

@@ -5,6 +5,7 @@ interface ButtonProps {
   selected: "normal" | "special"; // 선택된 모드
   specialInput: string; // specialInput 값
   onNewResult: (newResult: number[][]) => void; // 새로운 결과를 상위 컴포넌트로 전달하는 콜백
+  setAnimationSpeed: (speed: number) => void; // 애니메이션 속도를 설정하는 함수 추가
 }
 
 // SVG 파일 동적 임포트
@@ -18,7 +19,12 @@ const getImageByNumber = (num: number) => {
   return svgs[filePath]?.default || null;
 };
 
-function Button({ selected, specialInput, onNewResult }: ButtonProps) {
+function Button({
+  selected,
+  specialInput,
+  onNewResult,
+  setAnimationSpeed,
+}: ButtonProps) {
   const [result, setResult] = useState<number[][] | null>(null); // 로컬 상태로 결과를 관리
   const [loading, setLoading] = useState<"none" | "singular" | "plural">(
     "none"
@@ -31,6 +37,16 @@ function Button({ selected, specialInput, onNewResult }: ButtonProps) {
     setLoading(buttonType); // 로딩 상태 업데이트
     setResult(null); // 기존 결과 초기화
     setIsAnimating(true); // 애니메이션 시작
+
+    // 애니메이션 속도 설정
+    const animationSpeed = 7; // 빠르게 이동할 속도 (예: 5배)
+    setAnimationSpeed(animationSpeed); // Animation 컴포넌트에 속도 설정
+
+    // 3초 지연 후 API 요청 처리
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    // 애니메이션 속도 원래대로 복원
+    setAnimationSpeed(1); // 원래 속도로 복원
 
     try {
       let endpoint = "";
