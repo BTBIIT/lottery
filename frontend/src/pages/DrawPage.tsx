@@ -27,7 +27,7 @@ function DrawPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="w-full max-w-[800px] bg-white p-0">
+      <div className="w-full max-w-[800px] bg-white p-0 m-0">
         <DropDown
           selected={selected}
           onChange={setSelected}
