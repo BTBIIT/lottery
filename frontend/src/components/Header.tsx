@@ -5,15 +5,16 @@ import sunIcon from "../assets/sun.svg";
 interface HeaderProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  isDarkTheme: boolean;
+  toggleTheme: () => void;
 }
 
-function Header({ activeTab, onTabChange }: HeaderProps) {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
-
+function Header({
+  activeTab,
+  onTabChange,
+  isDarkTheme,
+  toggleTheme,
+}: HeaderProps) {
   return (
     <div
       className={`w-[800px] h-[100px] m-0 p-0 flex items-center shadow-lg ${

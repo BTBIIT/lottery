@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import Header from "./components/Header";
 import DrawPage from "./pages/DrawPage";
 import Record from "./pages/Record";
-import Header from "./components/Header";
 
 function App() {
   const [activeTab, setActiveTab] = useState("lottery");
-  const navigate = useNavigate();
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    if (tab === "lottery") {
-      navigate("/");
-    } else if (tab === "record") {
-      navigate("/record");
-    }
+  const toggleTheme = () => {
+    setIsDarkTheme((prev) => !prev);
   };
 
   return (
-    <div>
-      <Header activeTab={activeTab} onTabChange={handleTabChange} />
-      <Routes>
-        <Route path="/" element={<DrawPage isDarkTheme={false} />} />
-        <Route path="/record" element={<Record />} />
-      </Routes>
+    <div className={isDarkTheme ? "bg-gray-800" : "bg-white"}>
+      <Header
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        isDarkTheme={isDarkTheme}
+        toggleTheme={toggleTheme}
+      />
+      {activeTab === "lottery" ? (
+        <DrawPage isDarkTheme={isDarkTheme} />
+      ) : (
+        <Record isDarkTheme={isDarkTheme} />
+      )}
     </div>
   );
 }

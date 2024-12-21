@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // SVG 파일 동적 임포트
 const svgs = import.meta.glob("../assets/ball_*.svg", {
@@ -14,9 +14,10 @@ const getImageByNumber = (num: number) => {
 interface ResultProps {
   log: number[][]; // 추첨 로그
   onUpdateLog: (newLog: number[][]) => void; // 상위 컴포넌트에서 로그 업데이트를 관리
+  isDarkTheme: boolean; // Dark theme flag
 }
 
-function Result({ log }: ResultProps) {
+function Result({ log, isDarkTheme }: ResultProps) {
   const [localLogs, setLocalLogs] = useState<number[][]>([]);
   const [delayedLogs, setDelayedLogs] = useState<number[][]>([]);
   const [visibleLogs, setVisibleLogs] = useState<number[][]>([]);
@@ -90,7 +91,11 @@ function Result({ log }: ResultProps) {
 
   return (
     <>
-      <p className="ml-[100px] mt-8 mb-6 text-[25px] font-bold text-black">
+      <p
+        className={`ml-[100px] mt-8 mb-6 text-[25px] font-bold ${
+          isDarkTheme ? "text-white" : "text-black"
+        }`}
+      >
         추첨 기록
       </p>
       <div className="mt-4 mb-8 flex flex-col gap-4 w-[600px] h-[550px] overflow-y-auto rounded-lg bg-gray-100 shadow-md">

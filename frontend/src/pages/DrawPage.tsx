@@ -45,6 +45,7 @@ function DrawPage({ isDarkTheme }: DrawPageProps) {
           onChange={setSelected}
           specialInput={specialInput}
           onSpecialInputChange={handleSpecialInputChange}
+          isDarkTheme={isDarkTheme}
         />
         {/* Animation 컴포넌트에 ref 전달 */}
         <Animation ref={animationRef} />
@@ -55,7 +56,11 @@ function DrawPage({ isDarkTheme }: DrawPageProps) {
           // animationRef에서 setSpeed 메서드 전달
           setAnimationSpeed={(speed) => animationRef.current?.setSpeed(speed)}
         />
-        <Result log={log} onUpdateLog={handleUpdateLog} />
+        <Result
+          log={log}
+          onUpdateLog={handleUpdateLog}
+          isDarkTheme={isDarkTheme}
+        />
       </div>
     </div>
   );

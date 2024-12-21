@@ -5,6 +5,7 @@ interface DropDownProps {
   onChange: (selected: "normal" | "special") => void;
   specialInput: string; // 부모로부터 전달받은 specialInput
   onSpecialInputChange: (input: string) => void; // 값 변경 이벤트 핸들러
+  isDarkTheme: boolean; // Dark theme flag
 }
 
 function DropDown({
@@ -12,6 +13,7 @@ function DropDown({
   onChange,
   specialInput,
   onSpecialInputChange,
+  isDarkTheme, // Receiving isDarkTheme prop
 }: DropDownProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSpecialInputChange(event.target.value); // specialInput 값을 부모로 전달
@@ -36,7 +38,11 @@ function DropDown({
 
       {/* 일반 추첨 설명 */}
       {selected === "normal" && (
-        <p className="float-right pt-2 ml-[110px] text-black font-bold text-right">
+        <p
+          className={`float-right pt-2 ml-[110px] font-bold text-right ${
+            isDarkTheme ? "text-white" : "text-black"
+          }`}
+        >
           모든 지난 회차의 번호 출현 확률에 따라 <br /> 가중치를 두고 번호를
           추첨하는 방식
         </p>
@@ -45,7 +51,11 @@ function DropDown({
       {/* 특수 추첨 - 사용자 입력 */}
       {selected === "special" && (
         <div className="ml-2">
-          <p className="float-pt-2 ml-[54px] text-black font-bold text-right">
+          <p
+            className={`float-pt-2 ml-[54px] font-bold text-right ${
+              isDarkTheme ? "text-white" : "text-black"
+            }`}
+          >
             사용자가 지정한 최근 회차의 번호 출현 확률에
             <br />
             따라 가중치를 두고 번호를 추첨하는 방식
