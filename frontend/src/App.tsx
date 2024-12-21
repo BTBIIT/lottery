@@ -21,7 +21,7 @@ function App() {
     <div>
       <Header activeTab={activeTab} onTabChange={handleTabChange} />
       <Routes>
-        <Route path="/" element={<DrawPage />} />
+        <Route path="/" element={<DrawPage isDarkTheme={false} />} />
         <Route path="/record" element={<Record />} />
       </Routes>
     </div>

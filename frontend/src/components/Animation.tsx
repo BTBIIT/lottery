@@ -83,7 +83,7 @@ class Animation extends React.Component<{}, AnimationState> {
   render() {
     return (
       // 컴포넌트 전체 배경
-      <div className="w-[800px] mt-8 mb-8 flex justify-center items-center bg-white">
+      <div className="w-[800px] mt-8 mb-8 flex justify-center items-center">
         {/* 추첨 애니메이션 범위 */}
         <div className="w-[600px] h-[300px] relative border-2 rounded-xl bg-gray-200 overflow-hidden">
           {this.state.ballPositions.map((ball, index) => (

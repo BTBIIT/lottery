@@ -4,7 +4,11 @@ import Button from "../components/Button";
 import Animation from "../components/Animation";
 import Result from "../components/Result";
 
-function DrawPage() {
+interface DrawPageProps {
+  isDarkTheme: boolean;
+}
+
+function DrawPage({ isDarkTheme }: DrawPageProps) {
   const [selected, setSelected] = useState<"normal" | "special">("normal");
   const [specialInput, setSpecialInput] = useState<string>("");
   const [log, setLog] = useState<number[][]>([]);
@@ -26,8 +30,16 @@ function DrawPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="w-full max-w-[800px] bg-white p-0 m-0">
+    <div
+      className={`flex items-center justify-center min-h-screen ${
+        isDarkTheme ? "bg-gray-800" : "bg-white"
+      }`}
+    >
+      <div
+        className={`w-full max-w-[800px] p-0 m-0 ${
+          isDarkTheme ? "bg-gray-700" : "bg-white"
+        }`}
+      >
         <DropDown
           selected={selected}
           onChange={setSelected}
