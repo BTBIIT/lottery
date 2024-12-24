@@ -70,7 +70,7 @@ function Record({ isDarkTheme }: RecordProps) {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:5000/api/data?page=${page}&limit=${ITEMS_PER_PAGE}`
+        `https://lottokorea.pythonanywhere.com/api/data?page=${page}&limit=${ITEMS_PER_PAGE}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

@@ -24,7 +24,7 @@ function DropDown({
       {/* 추첨 방식 선택 드롭다운 */}
       <select
         id="raffle-select"
-        className="w-[200px] h-[50px] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-black font-bold"
+        className="w-[200px] h-[50px] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-black font-bold shadow-md"
         value={selected}
         onChange={(e) => onChange(e.target.value as "normal" | "special")}
       >
@@ -65,7 +65,7 @@ function DropDown({
           <input
             style={{ color: "black" }}
             type="text"
-            className="w-[350px] ml-[50px] mt-6 p-2 border border-gray-300 rounded-md text-center"
+            className="w-[350px] ml-[50px] mt-6 p-2 border border-gray-300 rounded-md text-center shadow-md"
             placeholder="예) 100"
             value={specialInput} // 부모에서 전달받은 specialInput 값
             onChange={handleInputChange} // 입력 시 부모에 전달

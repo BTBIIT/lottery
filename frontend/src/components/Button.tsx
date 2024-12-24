@@ -53,13 +53,13 @@ function Button({
       if (selected === "normal") {
         endpoint =
           drawCount === 1
-            ? "http://localhost:5000/api/single-draw"
-            : "http://localhost:5000/api/multiple-draws";
+            ? "https://lottokorea.pythonanywhere.com/api/single-draw"
+            : "https://lottokorea.pythonanywhere.com/api/multiple-draws";
       } else if (selected === "special") {
         endpoint =
           drawCount === 1
-            ? "http://localhost:5000/api/draw-limited"
-            : "http://localhost:5000/api/draw-limited-multiple";
+            ? "https://lottokorea.pythonanywhere.com/api/draw-limited"
+            : "https://lottokorea.pythonanywhere.com/api/draw-limited-multiple";
       }
 
       const url = new URL(endpoint);
@@ -110,7 +110,7 @@ function Button({
         {/* 1회 추첨 버튼 */}
         <button
           onClick={() => handleClick(1)}
-          className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
+          className="w-[270px] h-[50px] bg-blue-400 text-white py-2 rounded hover:bg-blue-700 transition text-[20px] font-bold flex justify-center items-center shadow-lg"
           disabled={loading !== "none"} // 로딩 중에는 비활성화
         >
           {loading === "singular" ? (
@@ -141,7 +141,7 @@ function Button({
         {/* 5회 추첨 버튼 */}
         <button
           onClick={() => handleClick(5)}
-          className="w-[270px] h-[50px] bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-[20px] font-bold flex justify-center items-center"
+          className="w-[270px] h-[50px] bg-blue-400 text-white py-2 rounded hover:bg-blue-700 transition text-[20px] font-bold flex justify-center items-center shadow-lg"
           disabled={loading !== "none"} // 로딩 중에는 비활성화
         >
           {loading === "plural" ? (
@@ -177,7 +177,7 @@ function Button({
           {result.map((draw, drawIndex) => (
             <div
               key={drawIndex}
-              className="flex flex-wrap gap-4 justify-center w-[600px] p-4 rounded-lg bg-gray-300"
+              className="flex flex-wrap gap-4 justify-center w-[600px] p-4 rounded-lg bg-gray-300 shadow-md"
             >
               {draw.map((num, numIndex) => {
                 const imageSrc = getImageByNumber(num);

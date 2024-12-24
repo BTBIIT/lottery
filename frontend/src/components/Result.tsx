@@ -98,14 +98,14 @@ function Result({ log, isDarkTheme }: ResultProps) {
       >
         추첨 기록
       </p>
-      <div className="mt-4 mb-8 flex flex-col gap-4 w-[600px] h-[550px] overflow-y-auto rounded-lg bg-gray-100 shadow-md">
+      <div className="mt-4 mb-8 flex flex-col gap-4 w-[600px] h-[550px] overflow-y-auto rounded-lg bg-gray-100 shadow-lg">
         {visibleLogs
           .slice() // 원본 배열 복사
           .reverse() // 역순 정렬 (최신 기록이 상단)
           .map((draw, drawIndex) => (
             <div
               key={drawIndex}
-              className="flex flex-wrap gap-4 justify-center w-full p-4 rounded-lg bg-gray-300"
+              className="flex flex-wrap gap-4 justify-center w-full p-4 rounded-lg bg-gray-300 shadow-md"
             >
               {draw.map((num, numIndex) => {
                 const imageSrc = getImageByNumber(num);
