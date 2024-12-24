@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./",
+  base: "/lottery/", // GitHub Pages 경로에 맞게 base 설정
   build: {
-    outDir: "build", // 출력 디렉터리를 'build'로 설정
+    outDir: "build",
   },
 });
