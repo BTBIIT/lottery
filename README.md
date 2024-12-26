@@ -76,7 +76,6 @@
 - **당첨기록 페이지 작성**
   - Frontend 부분의 frontend/src/pages/Record.tsx 파일 제작 ([링크](https://github.com/BTBIIT/lottery/blob/main/frontend/src/pages/Record.tsx))
 
-<hr style="width: 95%; height: 1px; margin: 15px auto; border: none; background-color: black;">
 
 <span style="font-size: 1.2em; font-weight: bold;">YSangH</span><br>
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) : https://github.com/YSangH  
@@ -98,7 +97,7 @@ PythonAnyWhere를 통해 API를 배포 &nbsp; https://www.pythonanywhere.com/ <b
 특수추첨 1회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/draw-limited-multiple <br>
 코드 위치 : https://github.com/BTBIIT/lottery/blob/main/backend/lotto_service_deploy.py
 
-<hr style="width: 95%; height: 1px; margin: 15px auto; border: none; background-color: black;">
+
 
 **Frontend**<br>
 Githunpages를 통해 배포
