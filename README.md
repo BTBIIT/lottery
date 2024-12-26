@@ -1,0 +1,88 @@
+# 프로젝트 명
+
+## lottery
+
+### 로또 복권 자동 추첨기
+
+동행복권 사이트로부터 얻어내온 지금까지의 로또 데이터를 바탕으로 각 번호의 빈도에 따라 확률 값을 보정하고, 추출할 수 있는 사이트로 개설 또한 원한다면 최근 회차를 기준으로만 확률 값을 보정할 수 있는 특수추첨 기능을 제공하는 사이트
+
+<hr>
+
+### 사용 기술
+
+<span style="font-size: 1.5em; font-weight: bold;">Stack</span>
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013B3B?style=for-the-badge&logo=numpy&logoColor=white) ![Flask-Cors](https://img.shields.io/badge/Flask_Cors-000000?style=for-the-badge&logo=flask&logoColor=white)
+
+![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white) ![ggplot2](https://img.shields.io/badge/ggplot2-ED6A5C?style=for-the-badge&logo=ggplot2&logoColor=white) ![svglite](https://img.shields.io/badge/svglite-4B93D3?style=for-the-badge&logo=svg&logoColor=white)
+
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
+![PythonAnywhere](https://img.shields.io/badge/PythonAnywhere-306998?style=for-the-badge&logo=python&logoColor=white) ![Git Bash](https://img.shields.io/badge/Git_Bash-F8F8F8?style=for-the-badge&logo=gitbash&logoColor=black) ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&logo=github&logoColor=white)
+
+- **Programming Language : Python (3.9)**
+- **Library : numpy (1.26.4), pandas (2.2.3)**
+- **WEB : TypeScript, JavaScript, Vite, React, Flask (3.0.3)**
+- **IDE : Visual Studio Code (1.96.2)**
+- **Communication : Notion, Figma, Git, Github**
+- **Deployment : <span style="color: purple;">**PythonAnywhere (Backend)**</span>, <span style="color: skyblue;">**GitHub Pages (Frontend)**</span>**
+<hr/>
+
+## 목차
+
+- **개발개요**
+- **프로젝트 참여자**
+  - BTBIIT
+  - YSangH
+- **웹 페이지 배포**
+  - 백엔드 배포
+  - 프론트 엔드 배포
+- **웹 페이지 화면 구성**
+- **결과 링크**
+- **웹 페이지 작동 영상**
+<hr>
+
+### 개발 개요
+
+인터넷에서 로또복권 추첨해주는 사이트에 대하여 비교적 간단한 코드를 가지고 수익창출하는 것에 대한 불만감과 동시에 무료로 웹 페이지를 배포하여 이용자들이 사용할 수 있는 웹 사이트를 제작해보자는 호기심과 만드는 김에 다양한 웹 기술을 적용해보자는 생각으로 프로젝트를 제작하게 되었음.
+
+<hr>
+
+### 프로젝트 참여자
+
+<span style="font-size: 1.2em; font-weight: bold;">BTBIIT</span><br>
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) : https://github.com/BTBIIT  
+![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white) : [rjsgur789@gmail.com](mailto:rjsgur789@gmail.com)  
+![Blog](https://img.shields.io/badge/Blog-2B90B9?style=for-the-badge&logo=tistory&logoColor=white) : https://code-palette.tistory.com/
+
+<span style="font-size: 1.0em; font-weight : bold;">역할</span>
+
+- **Backend 코드 작성**
+  - Python 코드 및 R 코드 작성
+- **Backend Deploy**
+  - 작성 완료된 Python 코드를 무료호스팅 사이트인 PythonAnyWhere를 통해 배포
+- **화면 설계 보조**
+  - Frontend 개발자의 화면 설계를 Figma로 같이 협업하여 화면 설계에 참여함
+- **R코드를 통한 구성요소 제작**
+  - R코드를 활용하여 필요한 SVG 파일을 생성하고 여백을 제거하는 등의 역할로 애니메이션 및 공 이미지와 같은 파일들 생성
+- **코드리뷰 참여 및 이슈해결**
+  - Frontend 및 Backend 코드에서 이슈 발생 시 이슈를 해결하는 역할을 도맡아 진행함
+- **당첨기록 페이지 작성**
+  - Frontend 부분의 frontend/src/pages/Record.tsx 파일 제작 ([링크](https://github.com/BTBIIT/lottery/blob/main/frontend/src/pages/Record.tsx))
+
+<hr style="border: 1.5px dotted; border-color: black;">
+
+<span style="font-size: 1.2em; font-weight: bold;">YSangH</span><br>
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) : https://github.com/YSangH  
+![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white) : [rjsgur789@gmail.com](mailto:rjsgur789@gmail.com)  
+![Blog](https://img.shields.io/badge/Blog-2B90B9?style=for-the-badge&logo=tistory&logoColor=white) : https://code-palette.tistory.com/
+
+<hr>
+
+### 웹 페이지 배포
