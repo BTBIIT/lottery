@@ -64,8 +64,7 @@
 
 <span style="font-size: 1.0em; font-weight : bold;">역할</span>
 
-- **Backend 코드 작성**
-  - Python 코드 및 R 코드 작성
+
 - **Backend Deploy**
   - 작성 완료된 Python 코드를 무료호스팅 사이트인 PythonAnyWhere를 통해 배포
 - **화면 설계 보조**
@@ -80,8 +79,23 @@
 
 <span style="font-size: 1.2em; font-weight: bold;">YSangH</span><br>
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) : https://github.com/YSangH  
-![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white) : [rjsgur789@gmail.com](mailto:rjsgur789@gmail.com)  
-![Blog](https://img.shields.io/badge/Blog-2B90B9?style=for-the-badge&logo=tistory&logoColor=white) : https://code-palette.tistory.com/
+![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white) : [ysh940129@gmail.com](mailto:ysh940129@gmail.com)  
+![Blog](https://img.shields.io/badge/Blog-2B90B9?style=for-the-badge&logo=tistory&logoColor=white) : https://ysh0129.tistory.com
+
+<span style="font-size: 1.0em; font-weight : bold;">역할</span>
+
+- **레이아웃 배치 및 기획**
+  - Figma를 이용하여 레이아웃의 구성과 기능별 배치
+- **Frontend 코드 작성**
+  - React에서 tsx 코드를 이용한 기능 구현 및 TailwindCSS를 이용한 레이아웃 스타일 작성
+- **코드리뷰 참여 및 이슈해결**
+  - Frontend 및 Backend 코드에서 이슈 발생 시 이슈를 해결하는 역할을 도맡아 진행함
+- **추첨기 페이지 작성**
+  - Frontend 부분의 frontend/src/pages/Record.tsx 파일 제작 ([링크](https://github.com/BTBIIT/lottery/blob/main/frontend/src/pages/DrawPage.tsx))
+- **React 폴더구조**
+  - Frontend 폴더 컴포넌트와 페이지 등 기획
+ 
+
 
 <hr>
 
