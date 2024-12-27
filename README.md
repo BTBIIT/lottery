@@ -29,7 +29,7 @@
 
 - **Programming Language : Python (3.9)**
 - **Library : numpy (1.26.4), pandas (2.2.3)**
-- **WEB : TypeScript, JavaScript, Vite, React, Flask (3.0.3)**
+- **WEB : TypeScript, JavaScript, Vite, React, Flask (3.0.3) TailwindCSS(2.2.19)**
 - **IDE : Visual Studio Code (1.96.2)**
 - **Communication : Notion, Figma, Git, Github**
 - **Deployment : <span style="color: purple;">**PythonAnywhere (Backend)**</span>, <span style="color: skyblue;">**GitHub Pages (Frontend)**</span>**
@@ -94,7 +94,23 @@
   - Frontend 부분의 frontend/src/pages/Record.tsx 파일 제작 ([링크](https://github.com/BTBIIT/lottery/blob/main/frontend/src/pages/DrawPage.tsx))
 - **React 폴더구조**
   - Frontend 폴더 컴포넌트와 페이지 등 기획
- 
+
+◎ 폴더 구조
+src/
+├── Assets/ - svg 이미지 파일 폴더
+├── components/ - 재사용 가능한 UI 컴포넌트를 모아놓은 폴더
+│    ├── Animation.tsx - 추첨기의 애니메이션 효과 컴포넌트
+│    ├── Button.tsx - 추첨 버튼 컴포넌트
+│    ├── Button.css - 추첨 버튼 컴포넌트 동작 후 애니메이션 css파일
+│    ├── DropDown.tsx - 추첨 옵션 컴포넌트 (일반, 특수 추첨) 
+│    ├── Header.tsx - 헤더 컴포넌트 (탭, 테마 전환 스위치)
+│    └── Result.tsx - 결과 로그 컴포넌트
+├── Pages/ - 페이지 모아놓은 폴더
+│    ├── DrawPage.tsx - 추첨기 페이지
+│    └── Record.tsx - 당첨기록 페이지
+├── declarations.d.ts - 타입스크립트에서 svg파일 사용 설정 및 파일을 동적으로 가져오기 위한 Vite의 기능
+├── App.css - App.tsx의 css파일
+└── App.tsx - 전체 라우팅 및 전역 상태 관리
 
 
 <hr>
