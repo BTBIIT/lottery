@@ -96,6 +96,7 @@
   - Frontend 폴더 컴포넌트와 페이지 등 기획
 
 ◎ 폴더 구조
+```
 src/
 ├── Assets/ - svg 이미지 파일 폴더
 ├── components/ - 재사용 가능한 UI 컴포넌트를 모아놓은 폴더
@@ -111,7 +112,7 @@ src/
 ├── declarations.d.ts - 타입스크립트에서 svg파일 사용 설정 및 파일을 동적으로 가져오기 위한 Vite의 기능
 ├── App.css - App.tsx의 css파일
 └── App.tsx - 전체 라우팅 및 전역 상태 관리
-
+```
 
 <hr>
 
