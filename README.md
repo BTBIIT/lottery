@@ -29,7 +29,7 @@
 
 - **Programming Language : Python (3.9)**
 - **Library : numpy (1.26.4), pandas (2.2.3)**
-- **WEB : TypeScript, JavaScript, Vite, React, Flask (3.0.3) TailwindCSS(2.2.19)**
+- **WEB : TypeScript, JavaScript, Vite, React, Flask (3.0.3), TailwindCSS(2.2.19)**
 - **IDE : Visual Studio Code (1.96.2)**
 - **Communication : Notion, Figma, Git, Github**
 - **Deployment : <span style="color: purple;">**PythonAnywhere (Backend)**</span>, <span style="color: skyblue;">**GitHub Pages (Frontend)**</span>**
