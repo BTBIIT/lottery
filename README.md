@@ -4,7 +4,7 @@
 
 ### 로또 복권 자동 추첨기
 
-동행복권 사이트로부터 얻어내온 지금까지의 로또 데이터를 바탕으로 각 번호의 빈도에 따라 확률 값을 보정하고,<br> 추출할 수 있는 사이트로 개설 또한 원한다면 최근 회차를 기준으로만 확률 값을 보정할 수 있는 특수추첨 기능을 제공하는 사이트
+동행복권 사이트로부터 얻어낸 로또 데이터를 기반으로 번호의 출현 빈도에 따라 확률을 보정하여 추첨 결과를 제공하는 웹사이트 또한 사용자가 지정한 특정 회차 범위를 기준으로 추첨할 수 있는 옵션을 추가로 제공함.
 
 <hr>
 
@@ -50,7 +50,8 @@
 
 ### 개발 개요
 
-인터넷에서 로또복권 추첨해주는 사이트에 대하여 비교적 간단한 코드를 가지고 수익창출하는 것에 대한 불만감과 동시에 무료로 웹 페이지를 배포하여 이용자들이 사용할 수 있는 웹 사이트를 제작해보자는 호기심과 만드는 김에 다양한 웹 기술을 적용해보자는 생각으로 프로젝트를 제작하게 되었음.
+이 프로젝트는 데이터를 기반으로 로또 번호를 추첨하는 웹 서비스를 개발하며 데이터 분석과 웹 개발 기술을 학습하고 응용하기 위해 시작됨.  
+또한 사용자 친화적인 UI와 API 통합 설계를 통해 효율적이고 직관적인 시스템을 구현함.
 
 <hr>
 
@@ -127,21 +128,27 @@ src/
 
 <hr>
 
-### 웹 페이지 배포
+## 웹 페이지 배포
 
-Backend와 Frontend를 각각 따로 배포하였음.
+### Backend
 
-**Backend** <br>
-PythonAnyWhere를 통해 API를 배포 &nbsp; https://www.pythonanywhere.com/ <br>
-당첨기록을 불러오는 API : https://lottokorea.pythonanywhere.com/api/data <br>
-일반추첨 1회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/single-draw <br>
-일반추첨 5회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/multiple-draws <br>
-특수추첨 1회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/draw-limited <br>
-특수추첨 1회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/draw-limited-multiple <br>
-코드 위치 : https://github.com/BTBIIT/lottery/blob/main/backend/lotto_service_deploy.py
+- **호스팅 플랫폼**: PythonAnywhere
+- **API URL 목록**:
 
-**Frontend**<br>
-Githunpages를 통해 배포
+| API 이름       | 설명                                            | URL                                                                         |
+| -------------- | ----------------------------------------------- | --------------------------------------------------------------------------- |
+| 당첨 기록 조회 | 지금까지의 당첨 기록을 가져옴                   | [API 링크](https://lottokorea.pythonanywhere.com/api/data)                  |
+| 일반 추첨(1회) | 모든 회차를 기준으로 한 번의 번호 추첨          | [API 링크](https://lottokorea.pythonanywhere.com/api/single-draw)           |
+| 일반 추첨(5회) | 모든 회차를 기준으로 다섯 번의 번호 추첨        | [API 링크](https://lottokorea.pythonanywhere.com/api/multiple-draws)        |
+| 특수 추첨(1회) | 사용자가 입력한 범위 내에서 한 번의 번호 추첨   | [API 링크](https://lottokorea.pythonanywhere.com/api/draw-limited)          |
+| 특수 추첨(5회) | 사용자가 입력한 범위 내에서 다섯 번의 번호 추첨 | [API 링크](https://lottokorea.pythonanywhere.com/api/draw-limited-multiple) |
+
+---
+
+### Frontend
+
+- **호스팅 플랫폼**: GitHub Pages
+- **배포 URL**: [https://btbiit.github.io/lottery/](https://btbiit.github.io/lottery/)
 
 <hr>
 
@@ -149,33 +156,24 @@ Githunpages를 통해 배포
 
 ![페이지 이미지](https://github.com/BTBIIT/lottery/blob/main/page.png?raw=true)
 
-- **추첨 버튼**
+1. **추첨 버튼**
 
-  - **일반 추첨**
-    - 모든 지난 회차의 번호 출현 확률에 따라 가중치를 두고 번호를 추첨하는 방식<br>
-    - 1회 추첨 버튼 클릭 시 **single-draw**<br>
-    - 5회 추첨 버튼 클릭 시 **multiple-draws**
+   - **일반 추첨**
+     - 모든 회차의 번호 출현 확률에 따라 추첨
+     - **API**: single-draw, multiple-draws
+   - **특수 추첨**
+     - 사용자가 입력한 범위(최근 n회차)만을 기준으로 추첨
+     - **API**: draw-limited, draw-limited-multiple
 
-- **특수 추첨**
+2. **추첨 기록**
 
-  - 사용자가 지정한 최근 회차의 번호 출현 확률에 따라 가중치를 두고 추첨하는 방식<br>
-    - ex: 100 입력 시 최근 100회차의 당첨 번호들로만 조합하여 확률 조정 후 추첨<br>
-    - 번호 입력 후 1회 추첨 버튼 클릭 시 **draw-limited**<br>
-    - 번호 입력 후 5회 추첨 버튼 클릭 시 **draw-limited-multiple**<br>
-    - 번호 입력 하지 않은 경우 자동으로 100회
+   - 사용자가 진행한 추첨 기록을 저장 및 표시 (localStorage 사용)
 
-- **추첨 기록**
-
-  - 1회 or 5회 추첨 시 번호들을 모아놓는 곳으로 여러 회차를 진행하더라도 스크롤형식으로 모아서 볼 수 있음
-  - localStorage 기능을 사용하므로 사용자의 번호가 관리자에게 노출되지 않으며, 동시에 페이지 관리자의 용량을 아낄 수 있는 측면임
-
-- **다크 모드**
-  - 눈을 편안하게 하기 위한 다크모드 지원
-- **당첨 기록**
-  - 매주 토요일 마다 수동으로 업데이트된 csv 파일을 읽어 지금까지 당첨된 모든 당첨번호들을 볼 수 있음
+3. **다크 모드**
+   - 눈에 편안한 다크 모드 지원
 
 <hr>
 
 ### 결과 링크
 
-[배포된 웹 페이지 주소](https://btbiit.github.io/lottery/)
+👉 [배포된 웹 페이지 주소](https://btbiit.github.io/lottery/)
