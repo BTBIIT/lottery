@@ -46,7 +46,6 @@
   - 프론트 엔드 배포
 - **웹 페이지 화면 구성**
 - **결과 링크**
-- **웹 페이지 작동 영상**
 <hr>
 
 ### 개발 개요
@@ -64,7 +63,6 @@
 
 <span style="font-size: 1.0em; font-weight : bold;">역할</span>
 
-
 - **Backend Deploy**
   - 작성 완료된 Python 코드를 무료호스팅 사이트인 PythonAnyWhere를 통해 배포
 - **화면 설계 보조**
@@ -76,6 +74,18 @@
 - **당첨기록 페이지 작성**
   - Frontend 부분의 frontend/src/pages/Record.tsx 파일 제작 ([링크](https://github.com/BTBIIT/lottery/blob/main/frontend/src/pages/Record.tsx))
 
+◎ 백엔드 폴더 구조
+
+```
+backend/ - 백엔드에서 사용된 코드 및 파일 Directory
+├── drawBall.R - Ball의 SVG 파일을 생성해주는 R코드
+├── firstBackendCode.R - lotto_service.py가 될 초기 R 코드
+├── lotto_service.py - 배포 전 최종 백엔드 파이썬 코드
+├── lotto_service_deploy.py - 배포 버전 최종 백엔드 파이썬 코드
+├── requirements.txt - 파이썬에 필요한 라이브러리 모음 텍스트 파일
+data/ - 기존 로또 번호 데이터 csv 파일이 위치한 Directory
+└── lottoDB.csv - 매주 토요일마다 업데이트 되는 로또번호 데이터 csv 파일
+```
 
 <span style="font-size: 1.2em; font-weight: bold;">YSangH</span><br>
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) : https://github.com/YSangH  
@@ -95,7 +105,8 @@
 - **React 폴더구조**
   - Frontend 폴더 컴포넌트와 페이지 등 기획
 
-◎ 폴더 구조
+◎ 프론트 폴더 구조
+
 ```
 src/
 ├── Assets/ - svg 이미지 파일 폴더
@@ -103,7 +114,7 @@ src/
 │    ├── Animation.tsx - 추첨기의 애니메이션 효과 컴포넌트
 │    ├── Button.tsx - 추첨 버튼 컴포넌트
 │    ├── Button.css - 추첨 버튼 컴포넌트 동작 후 애니메이션 css파일
-│    ├── DropDown.tsx - 추첨 옵션 컴포넌트 (일반, 특수 추첨) 
+│    ├── DropDown.tsx - 추첨 옵션 컴포넌트 (일반, 특수 추첨)
 │    ├── Header.tsx - 헤더 컴포넌트 (탭, 테마 전환 스위치)
 │    └── Result.tsx - 결과 로그 컴포넌트
 ├── Pages/ - 페이지 모아놓은 폴더
@@ -129,7 +140,42 @@ PythonAnyWhere를 통해 API를 배포 &nbsp; https://www.pythonanywhere.com/ <b
 특수추첨 1회를 불러오는 API : https://lottokorea.pythonanywhere.com/api/draw-limited-multiple <br>
 코드 위치 : https://github.com/BTBIIT/lottery/blob/main/backend/lotto_service_deploy.py
 
-
-
 **Frontend**<br>
 Githunpages를 통해 배포
+
+<hr>
+
+### 웹 페이지 화면 구성
+
+![페이지 이미지](https://github.com/BTBIIT/lottery/blob/main/page.png?raw=true)
+
+- **추첨 버튼**
+
+  - **일반 추첨**
+    - 모든 지난 회차의 번호 출현 확률에 따라 가중치를 두고 번호를 추첨하는 방식<br>
+    - 1회 추첨 버튼 클릭 시 **single-draw**<br>
+    - 5회 추첨 버튼 클릭 시 **multiple-draws**
+
+- **특수 추첨**
+
+  - 사용자가 지정한 최근 회차의 번호 출현 확률에 따라 가중치를 두고 추첨하는 방식<br>
+    - ex: 100 입력 시 최근 100회차의 당첨 번호들로만 조합하여 확률 조정 후 추첨<br>
+    - 번호 입력 후 1회 추첨 버튼 클릭 시 **draw-limited**<br>
+    - 번호 입력 후 5회 추첨 버튼 클릭 시 **draw-limited-multiple**<br>
+    - 번호 입력 하지 않은 경우 자동으로 100회
+
+- **추첨 기록**
+
+  - 1회 or 5회 추첨 시 번호들을 모아놓는 곳으로 여러 회차를 진행하더라도 스크롤형식으로 모아서 볼 수 있음
+  - localStorage 기능을 사용하므로 사용자의 번호가 관리자에게 노출되지 않으며, 동시에 페이지 관리자의 용량을 아낄 수 있는 측면임
+
+- **다크 모드**
+  - 눈을 편안하게 하기 위한 다크모드 지원
+- **당첨 기록**
+  - 매주 토요일 마다 수동으로 업데이트된 csv 파일을 읽어 지금까지 당첨된 모든 당첨번호들을 볼 수 있음
+
+<hr>
+
+### 결과 링크
+
+[배포된 웹 페이지 주소](https://btbiit.github.io/lottery/)
