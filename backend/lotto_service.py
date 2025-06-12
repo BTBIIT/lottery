@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__) # flask 앱 초기화
 CORS(app)
 # 데이터 파일 경로 (추후 인터넷 URL로 변경 예정)
-DATA_URL = "../data/lottoDB.csv"
+DATA_URL = "https://raw.githubusercontent.com/BTBIIT/lottery/refs/heads/main/data/lottoDB.csv"
 
 ##############################################################################################################################################
 # 함수 선언부 #
@@ -23,10 +23,20 @@ DATA_URL = "../data/lottoDB.csv"
 def load_and_sort_data():
     # CSV 파일을 pandas 데이터프레임으로 로드
     lotto_data = pd.read_csv(DATA_URL)
-
     # 최신 날짜 기준으로 정렬 (마지막 줄이 첫 번째 줄로 올라옴)
     sorted_data = lotto_data.iloc[::-1].reset_index(drop=True)
     return sorted_data
+
+# 작성자 : 박건혁
+# 작성일 : 2025-06-12
+# 목  적 : 기존에 추출된 로또 조합들을 모두 정렬된 튜플 형태로 추출하여 중복 여부 쉽게 판별하기 위한 함수
+# 메서드 : 추첨 데이터 6개의 숫자 열만 추출 -> 각 줄을 정렬된 튜플로 변환 -> set에 저장
+# 반환값 : 기존 조합들의 집합(set)
+def load_existing_combinations(data):
+    # 기존 로또 조합을 정렬된 튜플로 변환하여 set에 저장 -> 중복 조합 여부를 쉽게 비교 가능
+    numbers = data[["one", "two", "three", "four", "five", "six"]]
+    existing_combos = set(tuple(sorted(row)) for row in numbers.values)
+    return existing_combos
 
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
@@ -52,6 +62,20 @@ def single_draw(data):
     )
     # 리스트로 반환
     return sampled_numbers.tolist()
+
+# 작성자 : 박건혁
+# 작성일 : 2025-06-12
+# 목  적 : 기존에 추출된 번호와 겹치지 않는 조합을 최대 max_retry 내에서 추출하는 함수
+# 메서드 : single_draw로 번호 추출 -> 정렬 -> 기존 조합과 비교 -> 중복이 아니면 반환
+# 반환값 : 기존에 없는 새로운 번호 조합 (리스트타입)
+def unique_draw(data, existing_combos, max_retry=100):
+    for _ in range(max_retry):
+        draw = single_draw(data)
+        draw_sorted = tuple(sorted(draw))
+        if draw_sorted not in existing_combos:
+            return list(draw_sorted)
+    return list(draw_sorted)  # 최대 재시도 이후 마지막 결과 반환
+
 
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
@@ -117,17 +141,23 @@ def get_paginated_data():
     return Response(json.dumps(json_data, ensure_ascii=False), mimetype='application/json')
 
 # 작성자 : 박건혁
-# 작성일 : 2024-12-09
-# 목  적 : 확률에 기반하여 숫자 6개를 1회 추출 하는 API
+# 작성일 : 2024-12-09 / 2025-06-12 리팩토링
+# 목  적 : 확률에 기반하여 숫자 6개를 1회 추출 하는 API / 기존 번호 조합과 겹치지 않음
 # 입력값 : 없음
-# 메서드 : 1. 전체 데이터를 로드 / 2. 숫자 6개를 샘플링하는 single_draw 함수 호출
+# 메서드 : 1. 전체 데이터를 로드 / 2. 숫자 6개를 샘플링하고 전체 데이터 조합과 동일하지 않은번호로 single_draw 함수 호출
 # 반환값 : JSON 형식으로 반환된 숫자 6개
 @app.route("/api/single-draw", methods=["GET"])
 def get_single_draw():
     data = load_and_sort_data()
+    existing_combos = load_existing_combinations(data)
+    draw_result = unique_draw(data, existing_combos)
+    return Response(json.dumps({"single_draw": draw_result}, ensure_ascii=False), mimetype='application/json')
+"""
+def get_single_draw():
+    data = load_and_sort_data()
     draw_result = single_draw(data)
     return Response(json.dumps({"single_draw": draw_result}, ensure_ascii=False), mimetype='application/json')
-
+"""
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
 # 목  적 : 확률에 기반하여 숫자 6개를 5번 추출하는 API
@@ -137,11 +167,21 @@ def get_single_draw():
 @app.route("/api/multiple-draws", methods=["GET"])
 def get_multiple_draws():
     data = load_and_sort_data()
+    existing_combos = load_existing_combinations(data)
+    results = []
+    for _ in range(5):
+        draw_result = unique_draw(data, existing_combos)
+        results.append(draw_result)
+        existing_combos.add(tuple(draw_result))  # 중복 방지를 위해 기존 조합에 추가
+    return Response(json.dumps({"multiple_draws": results}, ensure_ascii=False), mimetype='application/json')
+"""
+def get_multiple_draws():
+    data = load_and_sort_data()
     results = []
     for _ in range(5):
         results.append(single_draw(data))
     return Response(json.dumps({"multiple_draws": results}, ensure_ascii=False), mimetype='application/json')
-
+"""
 # 작성자 : 박건혁
 # 작성일 : 2024-12-09
 # 목  적 : 특정 범위 내에서 숫자 6개를 추출하는 API
