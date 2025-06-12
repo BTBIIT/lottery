@@ -4,7 +4,8 @@
 
 ### 결과 링크
 
-👉 [배포된 웹 페이지 주소](https://btbiit.github.io/lottery/)
+👉 [배포된 웹 페이지 주소]
+(https://btbiit.github.io/lottery/)
 
 <hr>
 
